@@ -1,4 +1,5 @@
 {
+  "cacheDirectories": [".next/cache"],
   "name": "my-admin-v2",
   "version": "0.1.0",
   "private": true,

@@ -19,10 +19,10 @@ const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
     }
 
     useEffect(() => {
-        if (router.asPath === '/change-password') { 
+        if (href === '/change-password') { 
             setDropdownCollapsed(true);
         }
-    },[router.asPath])
+    },[href])
 
     return (
         <>
