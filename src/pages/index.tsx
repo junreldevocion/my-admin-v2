@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps> = ({ token }) => {
 				<h1 className="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 			</Layout>
    		</>
-  )
+    )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -16,10 +16,11 @@ const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
     }
 
     useEffect(() => {
-        if (href === '/change-password') { 
+        const _href = href;
+        if (_href === '/change-password') { 
             setDropdownCollapsed(true);
         }
-    },[])
+    },[dropdownCollapsed])
 
     return (
         <>
