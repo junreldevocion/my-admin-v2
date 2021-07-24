@@ -42,6 +42,7 @@ const Navbar: NextPage<NavbarProps> = ({collapsed, setCollapsed, token, username
 									className="avatar img-fluid rounded"
 									width={40}
 									height={40}
+									alt={'avatar'}
 								/>		
 							</a>
 							<div className={`dropdown-menu dropdown-menu-end ${dropdownToggle ? 'show' : ''}`} data-bs-popper={`${dropdownToggle ? 'none' : ''}`}>
