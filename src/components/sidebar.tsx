@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from "next/router";
+
 
 interface SidebarProps {
     collapsed: boolean,
@@ -10,17 +12,17 @@ interface SidebarProps {
 const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
 
     const [dropdownCollapsed, setDropdownCollapsed] = useState<boolean>(false);
+    const router = useRouter();
 
     const dropdownCollapsedToggler = (e: React.MouseEvent<HTMLElement>) : void => {
         setDropdownCollapsed(!dropdownCollapsed);
     }
 
     useEffect(() => {
-        const _href = href;
-        if (_href === '/change-password') { 
+        if (router.asPath === '/change-password') { 
             setDropdownCollapsed(true);
         }
-    },[dropdownCollapsed])
+    },[])
 
     return (
         <>
