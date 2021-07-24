@@ -2,14 +2,17 @@ import React, {useState} from 'react'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Avatar from '@/img/avatars/avatar.jpg'
+import api from 'src/util/api'
+import {logOut} from 'src/util/auth'
 
 interface NavbarProps {
 	collapsed: boolean;
 	setCollapsed: (a:boolean) => void;
+	token: string;
   	username: string;
 }
 
-const Navbar: NextPage<NavbarProps> = ({collapsed, setCollapsed, username}) => {
+const Navbar: NextPage<NavbarProps> = ({collapsed, setCollapsed, token, username}) => {
 	const [dropdownToggle, setDrodownToggle] = useState<boolean>(false);
 
 	const dropdownToggler = (e: React.MouseEvent<HTMLElement>) : void => {
@@ -48,6 +51,12 @@ const Navbar: NextPage<NavbarProps> = ({collapsed, setCollapsed, username}) => {
 								</a>
 								<div className="dropdown-divider"></div>
 								<a className="dropdown-item" href="#"
+								onClick={
+									(e) => {
+										e.preventDefault(); 
+										api().post('api/logout', {}, { headers: {"Authorization" : `Bearer ${token}`} })
+										.then(() => logOut());
+									}}
 								>Log out</a>
 							</div>
 						</li>

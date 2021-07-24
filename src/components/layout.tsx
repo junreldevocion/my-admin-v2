@@ -9,10 +9,11 @@ import Footer from '@/components/footer'
 
 interface LayoutProps {
     title: string,
-    children: ReactElement | ReactElement[] 
+    children: ReactElement | ReactElement[];
+    token: string 
 }
 
-const Layout: NextPage<LayoutProps> = ({title, children}) => {
+const Layout: NextPage<LayoutProps> = ({title, children, token}) => {
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
     const router = useRouter();
@@ -23,7 +24,7 @@ const Layout: NextPage<LayoutProps> = ({title, children}) => {
             <div className="wrapper">
                 <Sidebar collapsed={collapsed} href={router.asPath}  />
                 <div className="main">
-                    <Navbar collapsed={collapsed} setCollapsed={setCollapsed} username="Jhon Doe" />
+                    <Navbar collapsed={collapsed} setCollapsed={setCollapsed} token={token} username="Jhon Doe" />
                     <main className="content">
                         <div className="container-fluid p-0">
 
@@ -37,5 +38,6 @@ const Layout: NextPage<LayoutProps> = ({title, children}) => {
         </>
     )
 }
+
 
 export default Layout
