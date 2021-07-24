@@ -17,6 +17,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/bootstrap/*": ["node_modules/bootstrap/scss/*"],
+      "@/img/*": ["public/img/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

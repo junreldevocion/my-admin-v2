@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { NextPage } from 'next'
 import Image from 'next/image'
-import Avatar from '../img/avatars/avatar.jpg'
+import Avatar from '@/img/avatars/avatar.jpg'
 
 interface NavbarProps {
 	collapsed: boolean;
