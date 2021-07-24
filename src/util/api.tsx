@@ -5,12 +5,14 @@ export default function api() {
 
     const isDev = process.env.NODE_ENV === 'development'
 
-    console.log(isDev);
-    
-    
-    
+    let baseUrl: string = "http://127.0.0.1:8000";
+
+    if (!isDev) {
+        baseUrl = 'https://my-admin-api-v2.herokuapp.com/'
+    }
+
     const api = axios.create({
-        baseURL: 'https://my-admin-api-v2.herokuapp.com/',
+        baseURL: baseUrl,
         withCredentials: true 
     });
 
