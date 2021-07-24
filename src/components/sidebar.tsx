@@ -22,7 +22,7 @@ const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
         if (router.asPath === '/change-password') { 
             setDropdownCollapsed(true);
         }
-    },[])
+    },[router.asPath])
 
     return (
         <>
