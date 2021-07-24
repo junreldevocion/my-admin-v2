@@ -2,8 +2,14 @@ import axios from 'axios'
 import { logOut } from './auth';
 
 export default function api() {
+
+    const isDev = process.env.NODE_ENV === 'development'
+
+    console.log(isDev);
+    
+    
+    
     const api = axios.create({
-        // baseURL: 'http://127.0.0.1:8000',
         baseURL: 'https://my-admin-api-v2.herokuapp.com/',
         withCredentials: true 
     });

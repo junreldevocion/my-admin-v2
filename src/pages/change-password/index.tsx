@@ -9,7 +9,7 @@ const ChnagePassword: React.FC<{}> = () => {
         <Layout title="Change password" token="">
             <h1 className="h3 mb-3">Change Password</h1>
             <div className="row">
-                <div className="col-6 offset-md-3">
+                <div className="col-6 offset-md-3 col-sm-6">
                     <div className="card">
                         <div className="card-header">
                             <h5 className="card-title mb-0"></h5>
