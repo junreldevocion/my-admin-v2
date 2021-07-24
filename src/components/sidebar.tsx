@@ -16,7 +16,7 @@ const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
         setDropdownCollapsed(!dropdownCollapsed);
     }
 
-    useEffect(() => {
+    useEffect(() => {  
         if (href === '/change-password') { 
             setDropdownCollapsed(true);
         }
