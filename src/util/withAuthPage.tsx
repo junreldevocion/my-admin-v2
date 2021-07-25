@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import {isLoggedIn} from 'src/util/auth'
+import { parseCookies } from 'src/helper/cookie'
 
 type User = {
-  isLoggedIn: boolean
+  isLogged: string
   token: string | undefined
 }
 
@@ -12,9 +12,10 @@ type Incoming<P> = (a: GetServerSidePropsContext, user: User) => Promise<P>;
 
 export const withAuthPage = (incoming?: Incoming<WithAuthServerSidePropsResult> | null) => {
   return async (context: GetServerSidePropsContext): Promise<WithAuthServerSidePropsResult> => {
-    const cookie = isLoggedIn(context?.req?.headers.cookie || '');
 
-    if ( !cookie.isLoggedIn && !cookie.token) {
+    const cookie = parseCookies(context)
+
+    if ( !! !cookie.isLogged && !! !cookie.token) {
       return {
         redirect: {
             destination: '/login',
@@ -24,8 +25,8 @@ export const withAuthPage = (incoming?: Incoming<WithAuthServerSidePropsResult> 
     }
 
     if (incoming) {
-      
-      const incomingResult = await incoming(context, {isLoggedIn: cookie.isLoggedIn, token: cookie.token})
+
+      const incomingResult = await incoming(context, {isLogged: cookie.isLogged, token: cookie.token})
 
       if ('props' in incomingResult) {
         return { props: { ...incomingResult.props, cookie } };

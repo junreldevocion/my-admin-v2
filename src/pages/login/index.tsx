@@ -1,12 +1,20 @@
 import React, {useState} from 'react'
 import { GetServerSideProps  } from 'next'
 import Head from 'next/head'
+import router from 'next/router'
+import { useCookies } from 'react-cookie'
 
 import Styles from '@/styles/css/login.module.css'
 import api from 'src/util/api'
-import { logIn, isLoggedIn } from 'src/util/auth'
+import { parseCookies } from 'src/helper/cookie'
 
-const Login: React.FC<{}> = () => {
+interface LoginProps {
+    data: object
+}
+
+const Login: React.FC<LoginProps> = (data) => {
+
+    const [cookie, setCookie] = useCookies(['isLogged', 'token'])
 
     const [formInput, setFormInput] = useState<object>({email:'', password:''});
     const [errorEmail, setErrorEmail] = useState<string>('');
@@ -24,7 +32,9 @@ const Login: React.FC<{}> = () => {
         api().get('sanctum/csrf-cookie').then(() => {
             api().post('api/login', formInput)
             .then(response => {
-                logIn(response.data.token, response.data.user.name)
+                setCookie('isLogged',  true, {maxAge: 86400, sameSite: 'lax'})
+                setCookie('token', response.data.token, {maxAge: 86400, sameSite: 'lax'})
+                router.push('/')
             })
             .catch(error => {
                 setErrorEmail('')
@@ -92,10 +102,11 @@ const Login: React.FC<{}> = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps  = async (context) => {
-    const cookie = isLoggedIn(context?.req?.headers.cookie || '')
+export const getServerSideProps: GetServerSideProps  = async (ctx) => {
 
-    if ( cookie.isLoggedIn ) {
+    const cookie = parseCookies(ctx);
+
+    if ( !! cookie.isLogged  && !! cookie.token) {
         return {
             redirect: {
                 destination: '/',
@@ -104,7 +115,7 @@ export const getServerSideProps: GetServerSideProps  = async (context) => {
         }
     }
 
-    return { props: JSON.parse(JSON.stringify(cookie)) };
+    return { props: cookie };
 }
 
 export default Login

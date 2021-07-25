@@ -1,12 +1,13 @@
 import React from 'react'
 import Layout from '@/components/layout'
-import {withAuthPage} from 'src/util/withAuthPage'
+import { withAuthPage } from 'src/util/withAuthPage'
 
 interface ChnagePasswordProps {
     token: string
 }
 
 const ChnagePassword: React.FC<ChnagePasswordProps> = ({token}) => { 
+    
   return (
     <>
         <Layout title="Change password" token={token}>
@@ -53,7 +54,7 @@ const ChnagePassword: React.FC<ChnagePasswordProps> = ({token}) => {
   )
 }
 
-export const getServerSideProps = withAuthPage(async (ctx, token) => {
+export const getServerSideProps = withAuthPage(async (ctx, {token}) => {
     return {props: {token}}
 });
 

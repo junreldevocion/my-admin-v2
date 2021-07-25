@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
+
 import Layout from '@/components/layout'
-import {withAuthPage} from 'src/util/withAuthPage'
 import api from 'src/util/api'
+import { withAuthPage } from 'src/util/withAuthPage'
 
 interface HomeProps {
 	token: string
@@ -9,7 +10,9 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ token }) => {
 
+	
 	useEffect(() => {
+
 		api().get('api/user', {headers: {"Authorization" : `Bearer ${token}`}})
 		.then(response => {
 			console.log(response);
