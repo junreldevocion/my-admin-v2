@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps> = ({ token }) => {
 		.then(response => {
 			console.log(response);
 		})
-	}, [])
+	}, [token])
     
 	return (
     	<>
