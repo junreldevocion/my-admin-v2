@@ -6,6 +6,7 @@ interface HeaderProps {
 }
 
 const Header: NextPage<HeaderProps> = ({title}) => {
+    
     return (
         <>
             <Head>

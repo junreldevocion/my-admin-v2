@@ -1,13 +1,13 @@
 import React from 'react'
-import {GetServerSideProps} from 'next'
 import Layout from '@/components/layout'
-import {isLoggedIn} from 'src/util/auth'
+import {withAuthPage} from 'src/util/withAuthPage'
 
 interface HomeProps {
 	token: string
 }
 
 const Home: React.FC<HomeProps> = ({ token }) => {
+    
 	return (
     	<>
 			<Layout title="home" token={token}>
@@ -17,25 +17,9 @@ const Home: React.FC<HomeProps> = ({ token }) => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const cookie = isLoggedIn(context?.req?.headers.cookie || '')
-
-    // const user = api().get('api/user', { headers: {"Authorization" : `Bearer ${cookie.token}`} });
-
-    // const [userData] = await Promise.all([user]);
-    
-    if ( !cookie.isLoggedIn && !cookie.token) {
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            },
-        }
-    }
-
-
-    return { props: JSON.parse(JSON.stringify(cookie)) };
-}
+export const getServerSideProps = withAuthPage(async (ctx, token) => {
+    return {props: {token}}
+});
 
 
 export default Home

@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
-import { ReactElement, useState } from "react";
-import { useRouter } from "next/router";
+import { ReactNode, useState } from "react";
 
 import Header from '@/components/header'
 import Navbar from '@/components/navbar'
@@ -9,20 +8,18 @@ import Footer from '@/components/footer'
 
 interface LayoutProps {
     title: string,
-    children: ReactElement | ReactElement[];
+    children: ReactNode;
     token: string 
 }
 
 const Layout: NextPage<LayoutProps> = ({title, children, token}) => {
     const [collapsed, setCollapsed] = useState<boolean>(false);
 
-    const router = useRouter();
-
     return (
         <>
             <Header title={title} />
             <div className="wrapper">
-                <Sidebar collapsed={collapsed} href={router.asPath}  />
+                <Sidebar collapsed={collapsed}  />
                 <div className="main">
                     <Navbar collapsed={collapsed} setCollapsed={setCollapsed} token={token} username="Jhon Doe" />
                     <main className="content">

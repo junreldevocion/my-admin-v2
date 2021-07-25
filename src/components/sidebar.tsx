@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
+import { useApp } from 'src/context/appContext';
 
 
 interface SidebarProps {
-    collapsed: boolean,
-    href: string
+    collapsed: boolean
 }
 
-const Sidebar: NextPage<SidebarProps> = ({collapsed, href}) => {
+const Sidebar: NextPage<SidebarProps> = ({collapsed}) => {
+
+    const {href} = useApp();
 
     const [dropdownCollapsed, setDropdownCollapsed] = useState<boolean>(false);
 
