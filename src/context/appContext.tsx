@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactElement, ReactNode, useContext } from "react";
 
 type appContextType = {
     href: string;
@@ -16,7 +16,7 @@ export function useApp() {
 };
 
 type Props = {
-    children: ReactNode
+    children: ReactElement[] | ReactElement
 }
 
 export function AppProvider({children}: Props) {
