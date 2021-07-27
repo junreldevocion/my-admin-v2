@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
-import { parseCookies } from 'src/helper/cookie'
+import { parseCookies } from './cookie'
 
 type User = {
   isLogged: string

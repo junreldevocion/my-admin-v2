@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 import { GetServerSideProps  } from 'next'
 import Head from 'next/head'
-import router from 'next/router'
 import { useCookies } from 'react-cookie'
 
 import Styles from '@/styles/css/login.module.css'
 import api from 'src/util/api'
-import { parseCookies } from 'src/helper/cookie'
+import { parseCookies } from 'src/util/cookie'
+import router from 'next/router'
 
 interface LoginProps {
     data: object
@@ -32,9 +32,15 @@ const Login: React.FC<LoginProps> = (data) => {
         api().get('sanctum/csrf-cookie').then(() => {
             api().post('api/login', formInput)
             .then(response => {
-                setCookie('isLogged',  true, {maxAge: 86400, sameSite: 'lax'})
-                setCookie('token', response.data.token, {maxAge: 86400, sameSite: 'lax'})
-                router.push('/')
+                
+                if (response.status === 201) {
+                    setCookie('isLogged',  true, {maxAge: 86400, sameSite: 'lax'})
+                    setCookie('token', response.data.token, {maxAge: 86400, sameSite: 'lax'})
+                    setCookie('user_me', response.data.token, {maxAge: 86400, sameSite: 'lax'})
+                    
+                    router.push('/')
+                }
+
             })
             .catch(error => {
                 setErrorEmail('')
